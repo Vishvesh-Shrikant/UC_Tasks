@@ -16,8 +16,9 @@ const SinglePass = () => {
         navigate('/view')
     }
     const getPassData=()=>{
-        axios.get(`http://localhost:6001/view/${viewpw}`)
+        axios.get(`http://localhost:5001/view/${viewpw}`)
         .then(res=>{
+            console.log(res.data)
             setName(res.data.name)
             setPassword(res.data.password)
             setTag(res.data.tags)
@@ -28,7 +29,7 @@ const SinglePass = () => {
     }
 
     const updatePass=()=>{
-        axios.put(`http://localhost:6001/update/${viewpw}`,{
+        axios.put(`http://localhost:5001/update/${viewpw}`,{
             name, password, tag
         })
         .then(res=>{
