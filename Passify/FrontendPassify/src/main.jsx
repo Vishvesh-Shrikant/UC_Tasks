@@ -8,7 +8,6 @@ import View from './Components/ViewPW/View.jsx'
 import SinglePass from './Components/ViewPW/SinglePass.jsx'
 import Login from './Components/User/Login.jsx'
 import SignUp from './Components/User/SignUp.jsx'
-import Account from './Components/User/Account.jsx'
 
 
 const router = createBrowserRouter(
@@ -20,7 +19,6 @@ const router = createBrowserRouter(
       <Route path='/view/:name' element={<SinglePass/>}/>
       <Route path='/login' element={<Login/>} />
       <Route path='/signup' element={<SignUp/>} />
-      <Route path='/account' element={<Account/>}/>
     </Route>
 
 

@@ -1,6 +1,6 @@
 import React, { useContext, useState } from 'react'
 import UserContext from '../../context/UserContext'
-import { useNavigate } from 'react-router-dom';
+import { Link, NavLink, useNavigate } from 'react-router-dom';
 const SignUp = () => {
 
   const [email, setEmail]=useState("")
@@ -21,13 +21,10 @@ const SignUp = () => {
   }
 
   return (
-    <form className='flex flex-col justify-center items-start bg-[#FCFCFC] rounded-2xl w-3/5' onSubmit={handleSubmit}>
-            <div className='h-12 bg-[#605F5E] justify-center items-end w-full rounded-t-2xl px-10 py-3 text-lg font-semibold'>
-                <p>Edit Password Password</p>
-            </div>
-            <div className='flex-col flex justify-center items-start px-10 py-6 w-full'>
+    <form className='flex flex-col justify-center items-start bg-[#FCFCFC] rounded-2xl w-1/2' onSubmit={handleSubmit}>
+            <div className='flex-col flex justify-center items-start px-10 py-3 w-full'>
                 <div className='w-full flex flex-col justify-between items-start my-2'>
-                    <label className='text-lg font-semibold'>Email<span className='text-[#FB3640] text-xs pb-3'>*</span></label>
+                    <label className='text-lg font-semibold'>Username<span className='text-[#FB3640] text-xs pb-3'>*</span></label>
                     <input type='text' placeholder='Enter username' className='outline-none border border-textColour p-2 w-full rounded-lg' value={username} onChange={e=> setUsername(e.target.value.trim())}/>
                 </div>
 
@@ -43,7 +40,12 @@ const SignUp = () => {
             </div>
             <div className='flex justify-between items-center px-10 pb-3 w-full'>
                 <button className='bg-[#63C132] w-1/4 border-textColour py-2 rounded-xl font-semibold text-lg'
-                onClick={handleSubmit}> Sumbit</button>
+                onClick={handleSubmit}> Sign Up</button>
+            </div>
+
+            <div className='flex justify-center items-center text-base font-texts px-10 py-2'>
+              <p className='mr-3'>Already have an account</p>
+              <Link to='/login' className='font-semibold underline'>Log In</Link>
             </div>
         </form>
   )
