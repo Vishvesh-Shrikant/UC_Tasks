@@ -8,8 +8,9 @@ const router = express.Router();
 
 router.post('/signin', async (req, res)=>{
     const body=req.body
-    const userData= await User.findOne({email:body.email,username:body.username })
-    if(userData)
+    const useremail= await User.findOne({email:body.email})
+    const user_username=await User.findOne({username:body.username})
+    if(useremail || user_username)
         res.status(400).json({msg:"User Already Exists"})
     else
     {
@@ -26,7 +27,6 @@ router.post('/signin', async (req, res)=>{
             console.log(user)
             const token = jwt.sign({ id: user._id }, process.env.ACCESS_TOKEN , { expiresIn: '7d' })
             res.status(201).json({ token: token })
-            //
         } 
         catch (err) 
         {

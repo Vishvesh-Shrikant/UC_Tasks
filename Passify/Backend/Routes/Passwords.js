@@ -32,7 +32,6 @@ router.get('/view/:id', async(req, res)=>{
     {
         res.status(500).json({msg:err})
     }
-
 })
 
 router.post('/create', async(req, res)=>{

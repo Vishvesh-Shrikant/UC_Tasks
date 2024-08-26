@@ -16,7 +16,7 @@ const Header = () => {
         <Link to='/'>
             <p className='text-3xl'>PASSIFY</p>
         </Link>
-        <nav className=' flex justify-between w-2/5 items-center text-lg'>
+        <nav className=' flex justify-between lg:w-2/5 max-lg:w-1/2 items-center text-lg'>
         
             <NavLink to='/' className={({isActive})=>`relative transition duration-300 ease-in-out after:transition  after:duration-300 after:ease-in-out ${isActive?'after:content-[""] after:w-2/3 after:absolute after:h-[0.13rem] after:bg-textColour after:bottom-0 text-textColour after:left-0' : 'hover:after:content-[""] hover:after:w-2/3 hover:after:absolute hover:after:h-[0.13rem] hover:after:bg-textColour hover:after:bottom-0 hover:after:left-0 text-textColour/80 hover:text-textColour' }`}>
                 Home
@@ -27,7 +27,6 @@ const Header = () => {
             <NavLink to='/view' className={({isActive})=>`relative transition duration-300 ease-in-out after:transition after:duration-300after:ease-in-out ${isActive?'after:content-[""] after:w-2/3 after:absolute after:h-[0.13rem] after:bg-textColour after:bottom-0 text-textColour after:left-0':'hover:after:content-[""] hover:after:w-2/3 hover:after:absolute hover:after:h-[0.13rem] hover:after:bg-textColour hover:after:bottom-0 hover:after:left-0 text-textColour/80 hover:text-textColour'}`}>
                 View
             </NavLink>
-            <a href='https://github.com/Vishvesh-Shrikant' target='_blank' className='relative transition duration-300 ease-in-out after:transition after:duration-300after:ease-in-out hover:after:content-[""] hover:after:w-2/3 hover:after:absolute hover:after:h-[0.13rem] hover:after:bg-textColour hover:after:bottom-0 hover:after:left-0 text-textColour/80 hover:text-textColour cursor-pointer'>About</a>
 
             {
                 loggedin &&
