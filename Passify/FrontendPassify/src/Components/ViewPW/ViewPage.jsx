@@ -42,8 +42,7 @@ const ViewPage = () => {
         <div className='flex flex-col justify-between items-start font-texts text-[#FCFCFC] w-full px-10'>
           <p className='text-3xl font-semibold'>View Your Passwords:</p>
   
-          <div className='grid grid-cols-3 gap-8  text-textColour w-full my-10'>
-  
+          <div className='grid sm:grid-cols-2 gap-8  text-textColour w-full my-10'>
               {
                   passData && passData.map((pass)=>(
                     <div className='flex items-start justify-center bg-[#FCFCFC] p-5 rounded-2xl cursor-pointer' key={pass._id}>

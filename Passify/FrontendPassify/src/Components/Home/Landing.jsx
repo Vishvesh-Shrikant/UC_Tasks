@@ -4,7 +4,7 @@ import {Typewriter} from 'react-simple-typewriter'
 const Landing = () => {
   return (
     <>
-        <div className='h-full w-full flex flex-col justify-center items-center text-[#FCFCFC] font-texts'>
+        <div className='h-full w-full flex flex-col justify-center items-center text-[#FCFCFC] font-texts py-10'>
             <p className=' text-[6rem] underline'> PASSIFY </p>
             <p className='w-2/3 text-center text-lg'>An easy to use Password manager that allows the user to store your passwords. each ouser can login using their credentials on which he/she can access , create , edit and delete their passwords </p>
 
@@ -25,11 +25,11 @@ const Landing = () => {
                 </a>
             </div>
 
-            <div className='flex justify-evenly items-center my-5 w-full'>
-              <div className=' h-96 rounded-3xl'>
+            <div className='flex justify-evenly max-md:justify-center max-md:flex-col items-center my-5 w-full'>
+              <div className=' h-96 rounded-3xl max-md:my-5'>
                 <img src='https://img.freepik.com/premium-vector/hand-is-holding-smartphone-with-lock-icon-screen-data-protection_532800-136.jpg' className='h-full rounded-3xl bg-[#FCFCFC] p-2'/>
               </div>
-              <div className='text-6xl w-1/2'>
+              <div className='text-6xl w-1/2 max-md:w-full text-center md:mx-5 max-md:my-5'>
                 <Typewriter 
                 words={["Create password", "View password", "Edit password", " Delete password"]} 
                 loop={false}
