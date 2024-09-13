@@ -1,6 +1,6 @@
 import React, {useState } from 'react'
 import logo from '../assets/TaskerLogo.png'
-import axios from 'axios'
+import api from '../api/AxiosApi'
 import { Button, FormControl, FormErrorMessage, FormLabel, Input, useToast } from '@chakra-ui/react'
 import { Link, useNavigate } from 'react-router-dom'
 const Signup = () => {
@@ -26,7 +26,7 @@ const Signup = () => {
         }
         else
         {
-            axios.post(`${import.meta.env.VITE_API_URL}/user/signup`, {name:name, email:email, password:password})
+            api.post('/user/signup', {name:name, email:email, password:password})
             .then(res=>{
                 if(res.data.success)
                 {

@@ -4,10 +4,10 @@ const cors=require('cors')
 const dotenv= require("dotenv").config()
 const authRoutes=require('./Routes/authRoutes.js')
 const cookieParser= require('cookie-parser')
-
+const corsOptions= require('./config/corsOptions.js')
 
 const app=express()
-app.use(cors())
+app.use(cors(corsOptions))
 app.use(cookieParser())
 app.use(express.json())
 app.use(authRoutes)

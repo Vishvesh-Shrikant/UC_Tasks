@@ -3,6 +3,7 @@ import logo from '../assets/TaskerLogo.png'
 import { Button, FormControl, FormErrorMessage, FormLabel, Input} from '@chakra-ui/react'
 import {Link, useNavigate} from 'react-router-dom'
 import axios from 'axios'
+import api from '../api/AxiosApi'
 const Login = () => {
 
 
@@ -21,7 +22,7 @@ const Login = () => {
             setPassword('')
             return;
         }
-        axios.post(`${import.meta.env.VITE_API_URL}/user/login`, {email, password})
+        api.post('/user/login', {email, password})
         .then(res=>{
             console.log(res)
             if(res.data.success)

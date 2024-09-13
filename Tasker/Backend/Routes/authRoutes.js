@@ -128,7 +128,7 @@ router.post('/user/logout', async(req, res)=>{
 })
 
 //VERIFY WHETHER THE USER IS VERFIED USING MIDDLEWARE AND THEN RETURNING USER DATA IF VERIFIED
-router.get('/user/verify', verifyToken, async(req, res)=>{
+router.post('/user/verify', verifyToken, async(req, res)=>{
     try {
         const user = await User.findById(req.user.id).select('-password');
         res.json({success:true, user});

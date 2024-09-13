@@ -4,6 +4,7 @@ import logo from '../assets/TaskerLogo.png'
 import { HStack, PinInput , PinInputField , Button, useToast} from '@chakra-ui/react'
 import UserContext from '../Context/UserContext'
 import { useNavigate } from 'react-router-dom'
+import api from '../api/AxiosApi'
 
 const VerifyOtp = () => {
     const [otp, setOtp]=useState();
@@ -11,13 +12,13 @@ const VerifyOtp = () => {
     const navigate=useNavigate()
     const {setUser}= useContext(UserContext)
     const handleSubmit=()=>{
-        axios.post(`${import.meta.env.VITE_API_URL}/user/verifyotp`, {otp},
+        api.post('/user/verifyotp', {otp},
             {
                 headers:{'Authorization': `Bearer ${localStorage.getItem("accessToken")}`}
             })
         .then(res=>{
             console.log(res)
-            if(res.data.success)
+            if(res?.data?.success)
             {
                 setUser(res.data.user)
                 toast({
@@ -34,27 +35,28 @@ const VerifyOtp = () => {
             console.log(err)
         })
     }
-    const sendotp=()=>{
-        axios.post(`${import.meta.env.VITE_API_URL}/user/sendotp`,{} , {
-            headers:{'Authorization': `Bearer ${localStorage.getItem("accessToken")}`}
-        })
-        .then((res)=>{
-            if(res.data.success)
-            {
-                toast({
-                    title: 'OTP',
-                    description: "OTP sent",
-                    status: 'success',
-                    duration: 5000,
-                    isClosable: true,
-                })
-            }
-        })
-        .catch(err=>{
-            console.log(err)
-        })
-    }
+    
     useEffect(()=>{
+        const sendotp=()=>{
+            api.post('/user/sendotp',{} , {
+                headers:{'Authorization': `Bearer ${localStorage.getItem("accessToken")}`}
+            })
+            .then((res)=>{
+                if(res?.data?.success)
+                {
+                    toast({
+                        title: 'OTP',
+                        description: "OTP sent",
+                        status: 'success',
+                        duration: 5000,
+                        isClosable: true,
+                    })
+                }
+            })
+            .catch(err=>{
+                console.log(err)
+            })
+        }
         sendotp()
     },[])
   return (
