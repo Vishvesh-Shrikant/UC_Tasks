@@ -7,8 +7,9 @@ const AuthRoutes = () => {
   return (
     <BrowserRouter>
         <Routes>
+            <Route index element={<Navigate to="home" replace />} />
             <Route path='/' element={<Layout/>}>
-                <Route index element={<HomePage/>}/>
+                <Route path='/home' element={<HomePage/>}/>
             </Route>
         </Routes>
     </BrowserRouter>

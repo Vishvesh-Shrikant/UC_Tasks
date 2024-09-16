@@ -106,8 +106,8 @@ router.post('/user/refreshToken', async(req, res)=>{
 })
 
 //FOR REMOVING REFRESH TOKEN FROM USER SO THAT THE USER IS LOGGED OUT 
-router.post('/user/logout', async(req, res)=>{
-    const refreshToken= req.body.refreshToken
+router.post('/user/logout', verifyToken,  async(req, res)=>{
+    const refreshToken= req.cookies.refreshToken
     if (refreshToken == null) 
         return res.status(401).json({success:false, msg:"Unauthorized access"});
 
@@ -117,9 +117,10 @@ router.post('/user/logout', async(req, res)=>{
         if (!user) 
             return res.status(403).json({success:false, msg:"Forbidden Access"});
 
+        res.cookie('refreshToken', '', { expires: new Date(0), sameSite:'strict', httpOnly: true });
         user.refreshToken = null;
         await user.save();
-        res.status(204).json({success:true, msg: "User logged out successfully" });
+        return res.status(204).json({success:true, msg: "User logged out successfully" });
     }
     catch(err)
     {
@@ -200,13 +201,13 @@ router.post('/user/verifyotp', verifyToken, async(req, res)=>{
         const datenow= Date.now()
 
         if(!otpsent)
-            return res.status(401).json({success:false, error: "OTP not found in db"});
+            return res.status(400).json({success:false, error: "OTP not found in db"})
 
         else if( datenow > otpsent.expiryTime)
-            return res.status(401).json({success:false, error: "OTP expired"})
+            return res.status(400).json({success:false, error: "OTP expired"})
 
         else if (otpinput != otpsent.otpcode)
-            return res.status(401).json({success:false, error: "Invalid OTP entered"});
+            return res.status(400).json({success:false, error: "Invalid OTP entered"});
         
         const user= await User.findByIdAndUpdate(otpsent.userid, {
             isVerified:true

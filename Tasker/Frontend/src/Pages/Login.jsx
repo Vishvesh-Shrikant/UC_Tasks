@@ -1,12 +1,12 @@
 import React, {useState } from 'react'
 import logo from '../assets/TaskerLogo.png'
-import { Button, FormControl, FormErrorMessage, FormLabel, Input} from '@chakra-ui/react'
+import { Button, FormControl, FormErrorMessage, FormLabel, Input, useToast} from '@chakra-ui/react'
 import {Link, useNavigate} from 'react-router-dom'
 import axios from 'axios'
 import api from '../api/AxiosApi'
 const Login = () => {
 
-
+    const toast= useToast({position:'top'})
     const [email, setEmail]=useState('')
     const [password, setPassword]= useState('')
     const [isEmailBlank, setEmailBlank]=useState(false)
@@ -24,12 +24,29 @@ const Login = () => {
         }
         api.post('/user/login', {email, password})
         .then(res=>{
-            console.log(res)
             if(res.data.success)
             {
                 setEmail('')
                 setPassword('')
                 localStorage.setItem("accessToken", res.data.accessToken);
+                api.post('/user/sendotp',{} , {
+                    headers:{'Authorization': `Bearer ${localStorage.getItem("accessToken")}`}
+                })
+                .then((res)=>{
+                    if(res?.data?.success)
+                    {
+                        toast({
+                            title: 'OTP',
+                            description: "OTP sent",
+                            status: 'success',
+                            duration: 5000,
+                            isClosable: true,
+                        })
+                    }
+                })
+                .catch(err=>{
+                    console.log(err)
+                })
                 navigate('/verifyotp')
             }
             

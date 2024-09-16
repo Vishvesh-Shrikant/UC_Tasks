@@ -6,7 +6,7 @@ import api from '../api/AxiosApi'
 
 
 const UserContextProvider = ({children}) => {
-    const [user, setUser]= useState()
+    const [user, setUser]= useState(null) 
 
   
     useLayoutEffect(()=>{

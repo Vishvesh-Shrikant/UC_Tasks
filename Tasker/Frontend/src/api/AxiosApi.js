@@ -14,7 +14,7 @@ api.interceptors.request.use(
         return config;
     },
     (error)=>{
-        return Promise.reject(error);
+        //return error.response
     }
 )
 
@@ -45,9 +45,11 @@ api.interceptors.response.use(
             catch(err){
                 console.log('Refresh token failed', err);
                 window.location.href = '/login';
-                return Promise.reject(err);
+                return err
             }
         }
+        else
+            return error
     }
 );
 
