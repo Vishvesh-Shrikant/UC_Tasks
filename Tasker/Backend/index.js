@@ -5,12 +5,17 @@ const dotenv= require("dotenv").config()
 const authRoutes=require('./Routes/authRoutes.js')
 const cookieParser= require('cookie-parser')
 const corsOptions= require('./config/corsOptions.js')
+const privateTeamRoutes= require('./Routes/privateTeamRoutes.js')
+const publicTeamRoutes= require('./Routes/publicTeamRoutes.js')
 
 const app=express()
 app.use(cors(corsOptions))
 app.use(cookieParser())
 app.use(express.json())
 app.use(authRoutes)
+app.use(privateTeamRoutes)
+app.use(publicTeamRoutes)
+
 
 
 

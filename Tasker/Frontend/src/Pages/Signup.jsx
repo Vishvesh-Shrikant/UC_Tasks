@@ -13,6 +13,7 @@ const Signup = () => {
     const [isPasswordBlank, setPasswordBlank]= useState(false)
     const toast= useToast({position:'top'})
     const navigate= useNavigate()
+    
     const handleSubmit=()=>{
         setNameBlank(name=='')
         setEmailBlank(email==='')
@@ -33,6 +34,12 @@ const Signup = () => {
                     setName('')
                     setEmail('')
                     setPassword('')
+                    const userid= res.data.new_user._id
+                    api.post('/user/privateTeam/createFirst', {id:userid, name:"Your Private Team"})
+                    .then(res)
+                    .catch(err=>{
+                        console.log(err)
+                    })
                     toast({
                         title: 'Account created.',
                         description: "We've created your account for you.",

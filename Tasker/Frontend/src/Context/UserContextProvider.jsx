@@ -1,4 +1,4 @@
-import React, { useLayoutEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import UserContext from './UserContext'
 import axios from 'axios'
 import api from '../api/AxiosApi'
@@ -9,7 +9,7 @@ const UserContextProvider = ({children}) => {
     const [user, setUser]= useState(null) 
 
   
-    useLayoutEffect(()=>{
+    useEffect(()=>{
       const checkLoggedIn=()=>{
         if(localStorage.getItem("accessToken"))
         {
@@ -32,7 +32,7 @@ const UserContextProvider = ({children}) => {
         }
     }
       checkLoggedIn()
-    })
+    },[])
 
   return (
     <UserContext.Provider value={{user, setUser}}>

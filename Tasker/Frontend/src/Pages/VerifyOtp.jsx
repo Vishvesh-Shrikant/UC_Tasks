@@ -20,7 +20,6 @@ const VerifyOtp = () => {
                 headers:{'Authorization': `Bearer ${localStorage.getItem("accessToken")}`}
             })
         .then(res=>{
-            console.log(res)
             if(res?.data?.success)
             {
                 setUser(res.data.user)

@@ -7,7 +7,8 @@ export default {
   theme: {
     extend: {
       colors:{
-        background:"#1E212B",
+        navbar:"#1f201d",
+        background:"#2B2C28",
         textColour:"#EEEEEE",
         boxColour:"#009FFD"
       },

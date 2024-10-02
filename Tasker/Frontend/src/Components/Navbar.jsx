@@ -43,8 +43,8 @@ const Navbar = () => {
 
   return (
     <>
-        <div className= 'bg-background px-3 w-full shadow-md shadow-[#111111] flex justify-between items-center sticky top-0' >
-            <Link to='/home' className='flex justify-center items-center '>
+        <div className= 'bg-navbar px-3 w-full shadow-md shadow-neutral-700 flex justify-between items-center sticky top-0 z-50' >
+            <Link to='/home' className='flex justify-center items-center' >
                 <img src={logo} className=' h-16 p-1'/>
             </Link>
 
