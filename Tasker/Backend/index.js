@@ -7,6 +7,8 @@ const cookieParser= require('cookie-parser')
 const corsOptions= require('./config/corsOptions.js')
 const privateTeamRoutes= require('./Routes/privateTeamRoutes.js')
 const publicTeamRoutes= require('./Routes/publicTeamRoutes.js')
+const taskRoutes= require('./Routes/taskRoutes.js')
+const checkListRoutes= require('./Routes/checkListRoutes.js')
 
 const app=express()
 app.use(cors(corsOptions))
@@ -15,6 +17,8 @@ app.use(express.json())
 app.use(authRoutes)
 app.use(privateTeamRoutes)
 app.use(publicTeamRoutes)
+app.use(taskRoutes)
+app.use(checkListRoutes)
 
 
 

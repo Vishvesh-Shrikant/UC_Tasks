@@ -8,7 +8,6 @@ import api from '../api/AxiosApi'
 const UserContextProvider = ({children}) => {
     const [user, setUser]= useState(null) 
 
-  
     useEffect(()=>{
       const checkLoggedIn=()=>{
         if(localStorage.getItem("accessToken"))
@@ -35,7 +34,7 @@ const UserContextProvider = ({children}) => {
     },[])
 
   return (
-    <UserContext.Provider value={{user, setUser}}>
+    <UserContext.Provider value={{user, setUser }}>
         {children}
     </UserContext.Provider>
   )

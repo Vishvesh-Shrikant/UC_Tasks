@@ -35,7 +35,7 @@ router.post('/user/privateTeam/create', verifyToken, async (req, res)=>{
        ]})
        if(teamExists)
        {
-            res.status(400).json({success:false, msg:"Team should have unique name"})
+        res.status(400).json({success:false, msg:"Team should have unique name"})
        }
        else
        {
@@ -67,6 +67,22 @@ router.get('/user/privateTeam/get', verifyToken, async(req, res)=>{
         return res.status(500).json({success:false, error:error})
     }
 })
+
+//get individual team 
+router.get('/user/privateTeam/get/:id', verifyToken, async(req, res)=>{
+    try
+    {
+        const team= await PrivateTeam.findById(req.params.id)
+        if(team)
+            return res.status(200).json({success:true, msg:"Team Found", team})
+        return res.status(400).json({success:false, error:"Team Not Found"})
+    }
+    catch(err)
+    {
+        return res.status(500).json({success:false, error: err})
+    }
+})
+
 
 //change private team name
 router.patch('/user/privateTeam/rename/:id',verifyToken, async(req, res)=>{

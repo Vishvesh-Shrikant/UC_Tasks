@@ -5,6 +5,10 @@ const taskSchema = new mongoose.Schema({
         type:mongoose.Schema.Types.ObjectId,
         required:true
     },
+    status:{
+        type:String,
+        required:true
+    },
     assigneeId:{
         type:mongoose.Schema.Types.ObjectId,
         required:true
@@ -28,6 +32,8 @@ const taskSchema = new mongoose.Schema({
         type:Date
     }
 })
+
+//9702465730
 
 const Task= mongoose.model('Tasks', taskSchema)
 module.exports=Task;
