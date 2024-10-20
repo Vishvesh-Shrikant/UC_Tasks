@@ -35,22 +35,30 @@ const Signup = () => {
                     setEmail('')
                     setPassword('')
                     const userid= res.data.new_user._id
-                    api.post('/user/privateTeam/createFirst', {id:userid, name:"Your Private Team"})
-                    .then(res)
+                    console.log(userid)
+                    api.post('/user/privateTeam/createFirst', { 
+                        id:userid, name:"Your Private Team"
+                    })
+                    .then(response=>{
+                        console.log(response)
+                        if(response.data.success)
+                            {
+                                toast({
+                                    title: 'Account created.',
+                                    description: "We've created your account for you.",
+                                    status: 'success',
+                                    duration: 5000,
+                                    isClosable: true,
+                                })
+                                navigate('/login')
+                        }
+                    })
                     .catch(err=>{
                         console.log(err)
                     })
-                    toast({
-                        title: 'Account created.',
-                        description: "We've created your account for you.",
-                        status: 'success',
-                        duration: 5000,
-                        isClosable: true,
-                    })
-                    navigate('/login')
                 }
             })
-            .then(err=>{
+            .catch(err=>{
                 console.log(err)
             })
         }

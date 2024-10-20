@@ -32,7 +32,7 @@ const Navbar = () => {
                 setTimeout(()=>{
                     navigate('/')
                     window.location.href='/'
-                }, 2000)
+                }, 500)
         })
         .catch(err =>{
             console.log(err)

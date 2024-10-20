@@ -23,8 +23,8 @@ const DropTasks = ({setTasks, teamId}) => {
     .then(res=>{
         console.log(res)
         toast({
-            title: 'Task created.',
-            description: "The task has been created successfully ",
+            title: 'Task Deleted.',
+            description: "The task has been deleted successfully ",
             status: 'success',
             duration: 2000,
             isClosable: true,

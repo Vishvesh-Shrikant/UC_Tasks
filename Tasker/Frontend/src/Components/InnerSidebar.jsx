@@ -45,15 +45,14 @@ const InnerSidebar = ({selectedProject, setSelectedProject, getData, setIsOpen})
             </button>
         </div> 
         <div className='flex flex-col justify-center items-start gap-4'>
-            <div className='w-full'>
-                <Button 
-                _hover={{bg:'#009FFDBD'}}  transition='all 0.35s cubic-bezier(0.4, 0, 0.2, 1)'   color='#EEF1EF'
-                variant='outline' className=' bg-[#009FFD] text-2xl w-full'>
-                Add
-                <Plus/>
-                </Button>
-            </div>
             {
+                getData.length===0?
+                <>
+                    <div className='ease-in-out duration-200 rounded p-1 w-full cursor-pointer'>
+                        <p>You have no teams... <br/> <br/></p>
+                        <p>Any Team you join/create will be visible here</p>
+                    </div>
+                </>:
                 getData.map((data)=>(
                     <RouteLinks key={data._id} id={data._id} teamname={data.name} setIsOpen={setIsOpen}  setSelectedProject={setSelectedProject}>
                     </RouteLinks>

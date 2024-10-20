@@ -10,7 +10,7 @@ const router= express.Router()
 router.post('/user/publicTeam/create', verifyToken, async(req, res)=>{
     try
     {
-        const teamcode= crypto.randomBytes(8).toString('hex');
+        const teamcode= crypto.randomBytes(4).toString('hex');
         let isUnique=false;
         const teamExists= await PublicTeam.findOne({$and:[
             {creatorId: req.user.id}, {name:req.body.name}
@@ -62,13 +62,29 @@ router.get('/user/publicTeam/get', verifyToken, async(req, res)=>{
             ]
         })
         if(userPublicTeams)
-            res.status(200).json({success:true , msg:"All Public Teams found", userPublicTeams})
+            return res.status(200).json({success:true , msg:"All Public Teams found", userPublicTeams})
     }
     catch(err)
     {
         return res.status(500).json({success:false, error: err})
     }
 })
+
+router.get('/user/publicTeam/get/:id', verifyToken, async(req, res)=>{
+    try
+    {
+        const userTeam = await PublicTeam.findById(req.params.id)
+        if(userTeam)
+            return res.status(200).json({success:true , msg:"All Public Teams found", userTeam})
+        return res.status(400).json({success:false, error:"Team Not Found"})
+    }
+    catch(err)
+    {
+        return res.status(500).json({success:false, error: err})
+    }
+})
+
+
 
 // join a team
 router.post('/user/publicTeam/join', verifyToken, async(req, res)=>{
@@ -87,8 +103,9 @@ router.post('/user/publicTeam/join', verifyToken, async(req, res)=>{
         }
         else
         {
-            const addMember= await PublicTeam.findOne({teamcode}, 
-                {$addToSet: { members: req.user.id }}
+            const addMember= await PublicTeam.findOneAndUpdate({ teamcode }, 
+                { $addToSet: { memberIds: req.user.id } }, 
+                { new: true }
             )
             if( addMember)
             {
