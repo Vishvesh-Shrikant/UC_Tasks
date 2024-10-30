@@ -70,6 +70,22 @@ router.get('/user/:teamId/task/get', verifyToken, async(req, res)=>{
 })
 
 
+router.get('/user/:teamId/task/get/:id', verifyToken, async(req, res)=>{
+    try
+    {
+        const taskId= req.params.id
+        const task = await Task.findById(taskId)
+        if(task)
+            return res.status(200).json({success:true, msg:"Task found successfully", task:task})
+        else
+            return res.status(200).json({success:false, err:"Task error"})
+    }
+    catch(err)
+    {
+        return res.status(500).json({success:false, error:err})
+    }  
+})
+
 router.patch('/user/:teamId/task/update/:taskId', verifyToken, async(req, res)=>{
     try
     {

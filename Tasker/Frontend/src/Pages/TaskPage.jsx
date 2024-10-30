@@ -6,7 +6,7 @@ import api from '../api/AxiosApi'
 
 const TaskPage = () => {
   const [teams, setTeams]=useState({})
-  
+  const [priv, setPriv]= useState(true)
   const {id}=useParams()
 
   const getSinglePrivTeam=()=>{
@@ -17,6 +17,7 @@ const TaskPage = () => {
       if(res.data.success)
       {
         setTeams(res.data.team)
+        setPriv(true)
       }
       else if(!res.data.success)
       {
@@ -35,6 +36,7 @@ const TaskPage = () => {
       if(res.data.success)
       {
         setTeams(res.data.userTeam)
+        setPriv(false)
       }
       else
       {
@@ -49,13 +51,16 @@ const TaskPage = () => {
   useEffect(()=>{
     getSinglePrivTeam()
     getSinglePubTeam()
-  }, [setTeams])
+  })
 
 
   return (
-    <div className='ml-20 py-10 px-5 overflow-x-scroll'>
-      <p className='text-xl font-medium px-5'>Team Name: {teams.name}</p>
-      <p className='text-xl font-medium px-5'>Team Code: {teams.teamcode}</p>
+    <div className='ml-20 py-10 px-5 overflow-x-scroll font-Raleway'>
+      <p className='text-xl font-medium px-5 '>Team Name: <span className='text-[#FFC800]'>{teams.name}</span></p>
+      {
+        !priv &&
+          <p className='text-xl font-medium px-5 '>Team Code: <span className='text-[#4ECDC4]'>{teams.teamcode}</span></p>
+      }
       <Kanban teamId={id}/>
     </div>
   )

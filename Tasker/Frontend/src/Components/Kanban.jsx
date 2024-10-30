@@ -27,7 +27,7 @@ const Kanban = ({teamId}) => {
       <Columns
         title="Backlog"
         column="backlog"
-        headingColor="text-neutral-500"
+        headingColor="text-[#8D99AE]"
         tasks={tasks}
         setTasks={getTasks}
         teamId={teamId}
@@ -35,7 +35,7 @@ const Kanban = ({teamId}) => {
       <Columns
         title="To-Do"
         column="todo"
-        headingColor="text-yellow-200"
+        headingColor="text-[#FFB100]"
         tasks={tasks}
         setTasks={getTasks}
         teamId={teamId}
@@ -43,15 +43,15 @@ const Kanban = ({teamId}) => {
       <Columns
         title="In progress"
         column="inprogress"
-        headingColor="text-blue-200"
+        headingColor="text-[#25CED1]"
         tasks={tasks}
         setTasks={getTasks}
         teamId={teamId}
       />
       <Columns
-        title="Complete"
+        title="Completed"
         column="completed"
-        headingColor="text-emerald-200"
+        headingColor="text-[#7AC74F]"
         tasks={tasks}
         setTasks={getTasks}
         teamId={teamId}

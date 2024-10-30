@@ -6,11 +6,10 @@ import DropIndicator from './DropIndicator'
 const Columns = ({title, headingColor, column, tasks, setTasks, teamId}) => {
     const [active, setActive]= useState(false)
 
+
     const handleDragStart=(e, task)=>{
       e.dataTransfer.setData("taskId", task.taskId)
-
     }
-
     const handleDragOver=(e)=>
     {
       e.preventDefault()
@@ -22,7 +21,6 @@ const Columns = ({title, headingColor, column, tasks, setTasks, teamId}) => {
       setActive(false)
       clearHighlight()
     }
-
     const handleDragEnd=(e)=>{
       setActive(false)
       clearHighlight()
@@ -49,6 +47,7 @@ const Columns = ({title, headingColor, column, tasks, setTasks, teamId}) => {
       }
     }
 
+    //FOR THE PURPLE INDICATORS
     const highlightIndicator=(e)=>{
       const indicators=getIndicator()
       clearHighlight(indicators)
@@ -102,12 +101,12 @@ const Columns = ({title, headingColor, column, tasks, setTasks, teamId}) => {
             filteredTasks.map((task)=>(
               <div key={task._id}>
                 <SingleTask key={task._id} taskName={task.taskName} taskStatus={task.status} taskId={task._id}
-                handleDragStart={handleDragStart}/>
+                handleDragStart={handleDragStart} headingColor={headingColor} teamId={teamId}/>
               </div>
             ))
           }
           <DropIndicator beforeId={null} column={column}/>
-          <AddTasks column={column} setTasks={setTasks} teamId={teamId}/>
+          <AddTasks column={column} setTasks={setTasks} teamId={teamId} headingColor={headingColor} title={title}/>
         </div>
     </div>
   )

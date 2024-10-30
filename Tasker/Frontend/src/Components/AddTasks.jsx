@@ -1,22 +1,49 @@
 import React, { useContext, useState } from 'react'
 import { Plus } from 'lucide-react';
 import api from '../api/AxiosApi'
-import { useToast } from '@chakra-ui/react';
+import { 
+  useToast, 
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalFooter,
+  ModalBody,
+  ModalCloseButton,
+  FormControl,
+  Input, 
+  FormLabel,
+  FormErrorMessage, 
+  Button
+} from '@chakra-ui/react';
 import {motion} from 'framer-motion'
-const AddTasks = ({column, setTasks, teamId}) => {
-    const [taskName, setTaskName]= useState()
-    const [taskDescription, setTaskDescription]= useState()
+
+
+const AddTasks = ({column, setTasks, teamId, headingColor, title}) => {
+    const [taskName, setTaskName]= useState('')
+    const [taskDescription, setTaskDescription]= useState('')
     const [adding, setAdding]= useState(false)
+    const [isError, setIsError]= useState(false)
     const toast= useToast({position:'top'})
-    
+
+
+
+
     const handleSubmit=(e)=>{
         e.preventDefault();
-        
-        if(!(taskName.trim().length && taskDescription.length))
-            return;
+        setTaskDescription(taskDescription.trim())
+        setTaskName(taskName.trim())
 
+        if(taskName===''|| taskDescription==='')
+        {
+          setIsError(true)
+          console.log(err)
+          setTaskName('')
+          setTaskDescription('')
+        }
         else
         {
+            setIsError(false)
             api.post(`/user/${teamId}/task/create`,{
                 taskName:taskName,
                 taskDescription:taskDescription,
@@ -33,7 +60,8 @@ const AddTasks = ({column, setTasks, teamId}) => {
                     duration: 2000,
                     isClosable: true,
                   })
-                setTasks()
+                setTaskName('')
+                setTaskDescription('')
                 setAdding(false)
             })
             .catch(err=>{
@@ -42,50 +70,78 @@ const AddTasks = ({column, setTasks, teamId}) => {
         }
     }
 
+    const addNewtaskModal=()=> {
+      setAdding(true)
+      setIsError(false)
+    }
+    const closeNewTaskModal=()=> {
+      setAdding(false)
+      setIsError(false)
+    }
+
+    
+
   return (
     <>
-    {
-        adding ?
-        <motion.form 
-        layout
-        onSubmit={handleSubmit}>
-            <textarea
-            onChange={(e) => setTaskName(e.target.value)}
-            autoFocus
-            placeholder="Add task name..."
-            className="w-full rounded border border-violet-400 bg-violet-400/20 p-3 text-sm text-neutral-50 placeholder-violet-300 focus:outline-0"
-          />
-          <textarea
-            onChange={(e) => setTaskDescription(e.target.value)}
-            autoFocus
-            placeholder="Add new description..."
-            className="w-full rounded border border-violet-400 bg-violet-400/20 p-3 text-sm text-neutral-50 placeholder-violet-300 focus:outline-0"
-          />
-          <div className="mt-1.5 flex items-center justify-end gap-1.5">
-            <button
-              onClick={() => setAdding(false)}
-              className="px-3 py-1.5 text-xs text-neutral-400 transition-colors hover:text-neutral-50"
-            >
-              Close
-            </button>
-            <button
-              type="submit"
-              className="flex items-center gap-1.5 rounded bg-neutral-50 px-3 py-1.5 text-xs text-neutral-950 transition-colors hover:bg-neutral-300"
-            >
-              <span>Add</span>
-              <Plus/>
-            </button>
-          </div>
+      <motion.button
+      layout
+      className='flex text-base font-medium text-white w-full items-center gap-1.5 px-3 py-1.5 '
+      onClick={addNewtaskModal}> 
+        <span>Add Tasks</span>
+        <Plus/>
+      </motion.button>
+      {
+        adding &&
+        (
+          <Modal
+            size={"xl"}
+            isCentered
+            isOpen={addNewtaskModal}
+            onClose={closeNewTaskModal} 
+            motionPreset='slideInBottom'
+        >
+            <ModalOverlay />
+              <ModalContent backgroundColor={"#2B2C28"} textColor={"#EEEEEE"}>
+                  <ModalHeader>New {title} Task</ModalHeader>
+                  <ModalCloseButton />
+                  <ModalBody>
+                  <FormControl isInvalid={isError} className='font-Raleway' onSubmit={handleSubmit}>
+                    <FormLabel className={`${headingColor}`} fontSize='larger'>Team Name</FormLabel>
+                    <Input placeholder='Task name' 
+                    onChange={e=>{
+                      setTaskName(e.target.value)
+                      setIsError(false)
+                    }}
+                    className={`${isError? 'mb-1': 'mb-4'}`}/>
+                    {
+                      (isError && taskName==='') &&
+                      <FormErrorMessage className='mb-3'>Task Name cannot be empty</FormErrorMessage>
+                    }
+                    <FormLabel className={`${headingColor}`} fontSize='larger'>Team Description</FormLabel>
+                    <Input placeholder='Task Description Description...' 
+                    onChange={e=>{
+                      setTaskDescription(e.target.value)
+                      setIsError(false)}} 
+                      className={`${isError? 'mb-1': 'mb-4'}`}/>
+                    {
+                      (isError && taskDescription==='') &&
+                      <FormErrorMessage className='mb-3'>Task Description cannot be empty</FormErrorMessage>
+                    }
 
-        </motion.form> :
-        <motion.button
-        layout
-        className='flex text-base font-medium text-white w-full items-center gap-1.5 px-3 py-1.5 '
-        onClick={()=>setAdding(true)}> 
-            <span>Add Cards</span>
-            <Plus/>
-        </motion.button>
-    }
+                    <Button 
+                    bgColor={`${headingColor.slice(6, headingColor.length-1)}`} 
+                    _hover={{bg:`${headingColor.slice(6, headingColor.length-1)}`, opacity:'0.9'}}
+                    className='rounded-md mr-3 w-1/4 p-2 text-xl font-Raleway' onClick={handleSubmit}>
+                      Save
+                    </Button>
+                  </FormControl>
+
+                  </ModalBody>
+              </ModalContent>
+          </Modal> 
+  
+        )
+      }
     </>
   )
 }
